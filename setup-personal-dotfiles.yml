@@ -24,3 +24,9 @@
       src: /home/saiful/dotfiles/ssh/config
       path: /home/saiful/.ssh/config
       state: link
+
+  - name: apply Bash configuration
+    lineinfile:
+      path: /home/saiful/.bashrc
+      line: ". ~/dotfiles/bash/bashrc"
+      create: yes
