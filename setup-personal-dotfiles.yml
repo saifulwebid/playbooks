@@ -1,0 +1,7 @@
+- hosts: localhost
+  tasks:
+  - name: ensure dotfiles repository is present
+    git:
+      repo: https://github.com/saifulwebid/dotfiles.git
+      dest: /home/saiful/dotfiles
+      update: no
