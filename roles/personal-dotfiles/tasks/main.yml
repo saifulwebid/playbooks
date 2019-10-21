@@ -1,0 +1,29 @@
+- name: ensure dotfiles repository is present
+  git:
+    repo: https://github.com/saifulwebid/dotfiles.git
+    dest: "{{ ansible_user_dir }}/dotfiles"
+    update: no
+
+- name: link gitconfig
+  file:
+    src: "{{ ansible_user_dir }}/dotfiles/git/gitconfig"
+    path: "{{ ansible_user_dir }}/.gitconfig"
+    state: link
+
+- name: ensure SSH directory is present
+  file:
+    path: "{{ ansible_user_dir }}/.ssh"
+    mode: g-rwx,o-rwx
+    state: directory
+
+- name: link SSH configuration
+  file:
+    src: "{{ ansible_user_dir }}/dotfiles/ssh/config"
+    path: "{{ ansible_user_dir }}/.ssh/config"
+    state: link
+
+- name: apply Bash configuration
+  lineinfile:
+    path: "{{ ansible_user_dir }}/.bashrc"
+    line: ". ~/dotfiles/bash/bashrc"
+    create: yes
