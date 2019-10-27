@@ -1,0 +1,25 @@
+- name: install apt-transport-https and ca-certificates
+  become: yes
+  apt:
+    name:
+    - apt-transport-https
+    - ca-certificates
+    update_cache: yes
+
+- name: add Brave repository
+  become: yes
+  apt_repository:
+    repo: deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ {{ ansible_lsb.codename }} main
+    filename: brave-browser-release-{{ ansible_lsb.codename }}
+
+- name: import Brave public key
+  become: yes
+  apt_key:
+    url: https://brave-browser-apt-release.s3.brave.com/brave-core.asc
+    keyring: /etc/apt/trusted.gpg.d/brave-browser-release.gpg
+
+- name: install Brave
+  become: yes
+  apt:
+    name: brave-browser
+    update_cache: yes
