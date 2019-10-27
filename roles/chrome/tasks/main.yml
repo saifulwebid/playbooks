@@ -1,0 +1,17 @@
+- name: add Google Chrome repository
+  become: yes
+  apt_repository:
+    repo: deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+    filename: google-chrome
+
+# URL was retrieved from https://www.google.com/linuxrepositories/
+- name: import Google Chrome public key
+  become: yes
+  apt_key:
+    url: https://dl.google.com/linux/linux_signing_key.pub
+
+- name: install Google Chrome
+  become: yes
+  apt:
+    name: google-chrome-stable
+    update_cache: yes
